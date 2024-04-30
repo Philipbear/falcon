@@ -248,6 +248,7 @@ def main(args: Union[str, List[str]] = None) -> int:
             # Cluster using the pairwise distance matrix.
             clusters = cluster.generate_clusters(
                 pairwise_dist_matrix,
+                config.cluster_method,
                 config.eps,
                 metadata["precursor_mz"].values,
                 metadata["retention_time"].values,
@@ -388,7 +389,9 @@ def _prepare_spectra() -> Dict[int, Dict[int, List[Tuple[str, str]]]]:
     dataset = lance.dataset(lance_path)
     n_spectra = dataset.count_rows()
     logger.debug(
-        "Read %d spectra from %d peak files", n_spectra, len(input_filenames)
+        "Wrote %d spectra from %d peak files to dataset",
+        n_spectra,
+        len(input_filenames),
     )
     # Group spectra with near-identical precursor m/z values in the same mass
     # bucket before clustering.

@@ -78,7 +78,7 @@ class Config:
             nargs=2,
             default=[20, "ppm"],
             help="Precursor tolerance mass and mode (default: 20 ppm). "
-            'Mode should be either "ppm" or "Da".',
+            "Mode should be either 'ppm' or 'Da'.",
         )
         self._parser.add_argument(
             "--rt_tol",
@@ -94,6 +94,21 @@ class Config:
             help="Fragment mass tolerance in m/z (default: %(default)s m/z).",
         )
 
+        self._parser.add_argument(
+            "--cluster_method",
+            type=str,
+            default="density",
+            choices=["density", "hierarchical"],
+            help="Clustering method (default: %(default)s).",
+        )
+        self._parser.add_argument(
+            "--linkage",
+            type=str,
+            default="complete",
+            help="Linkage criterion for hierarchical clustering "
+            "(default: %(default)s). Should be one of "
+            "'single', 'complete', 'average'.",
+        )
         self._parser.add_argument(
             "--eps",
             type=float,
